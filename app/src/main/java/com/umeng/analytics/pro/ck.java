@@ -1,8 +1,0 @@
-package com.umeng.analytics.pro;
-
-/* loaded from: classes4.dex */
-public class ck {
-    public ci a(ci ciVar) {
-        return ciVar;
-    }
-}
