@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_menu_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.martian.mibook.mvvm.read.widget.ReadingAutoSlideLayout
+        android:id="@+id/reading_auto_slide_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:layout_behavior="@string/bottom_sheet_behavior"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

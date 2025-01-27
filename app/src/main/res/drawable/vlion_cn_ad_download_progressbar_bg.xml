@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <corners
+                android:bottomLeftRadius="6dp"
+                android:bottomRightRadius="6dp"/>
+            <solid android:color="@color/vlion_custom_tran_60_white_font_color"/>
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip android:scaleWidth="100%">
+            <shape>
+                <corners
+                    android:bottomLeftRadius="6dp"
+                    android:bottomRightRadius="6dp"/>
+                <gradient
+                    android:startColor="@color/vlion_cst_bl_bt_s_clr"
+                    android:endColor="@color/vlion_cst_bl_bt_e_color"
+                    android:angle="0"
+                    android:type="linear"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>

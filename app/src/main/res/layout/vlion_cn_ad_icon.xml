@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/vlion_cn_ad_background"
+    android:padding="1dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/advert_icon"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:src="@drawable/vlion_menta_ad_icon"
+        android:scaleType="fitCenter"/>
+    <TextView
+        android:textSize="8dp"
+        android:textColor="#ffffffff"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/advert_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="广告"
+        android:layout_marginStart="1dp"/>
+</LinearLayout>

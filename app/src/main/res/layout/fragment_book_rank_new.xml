@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.martian.libmars.ui.theme.ThemeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:backgroundType="14">
+    <RelativeLayout
+        android:layout_width="74dp"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+    <com.martian.libmars.ui.theme.ThemeRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:relativeBackgroundType="3">
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srlEnableOverScrollBounce="false"
+            app:srlReboundDuration="600">
+            <RelativeLayout
+                android:id="@+id/rl_book_container"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_child"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <com.martian.libmars.widget.recyclerview.LoadingTip
+                    android:id="@+id/rv_loadedTip"
+                    android:background="@color/transparent"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    </com.martian.libmars.ui.theme.ThemeRelativeLayout>
+</com.martian.libmars.ui.theme.ThemeLinearLayout>

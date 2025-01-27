@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingTop="8dp"
+    android:paddingBottom="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.martian.libmars.ui.theme.ThemeImageView
+        android:layout_width="12dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_load_end"
+        app:colorFilterType="15"/>
+    <com.martian.libmars.ui.theme.ThemeTextView
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/tvTheEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="已显示全部内容"
+        app:textColorType="3"/>
+    <com.martian.libmars.ui.theme.ThemeImageView
+        android:layout_width="12dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_load_end"
+        app:colorFilterType="15"/>
+</LinearLayout>

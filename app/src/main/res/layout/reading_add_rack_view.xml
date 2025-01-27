@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="92dp"
+        android:layout_height="50dp"
+        android:src="@drawable/bg_reader_add_bookrack"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+    <com.martian.libmars.widget.RoundedLayout
+        android:id="@+id/reading_add_rack"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentRight="true"
+        android:onClick="onAddToBookrackClick"
+        android:layout_alignParentEnd="true"
+        app:rlRoundBottomLeft="true"
+        app:rlRoundBottomRight="false"
+        app:rlRoundTopLeft="true"
+        app:rlRoundTopRight="false"
+        app:rlRoundedCornerRadius="17dp">
+        <com.martian.mibook.ui.reader.ReaderThemeLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <com.martian.mibook.ui.reader.ReaderThemeTextView
+                android:textSize="14sp"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_book_store"
+                android:singleLine="true"/>
+        </com.martian.mibook.ui.reader.ReaderThemeLinearLayout>
+    </com.martian.libmars.widget.RoundedLayout>
+</RelativeLayout>

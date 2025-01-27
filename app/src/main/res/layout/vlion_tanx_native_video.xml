@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:id="@+id/fl_ad_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:id="@+id/fl_ad_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:gravity="right"
+            android:layout_gravity="right"
+            android:orientation="vertical"
+            android:id="@+id/ll_operation_area"
+            android:visibility="gone"
+            android:layout_width="180dp"
+            android:layout_height="260dp"
+            android:layout_marginTop="80dp">
+            <Button
+                android:id="@+id/btn_stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂停"/>
+            <Button
+                android:id="@+id/btn_replay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="重播"/>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

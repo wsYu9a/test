@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/vlion_custom_tran_20_black_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/vlion_BaseSwipeView"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="55dp"/>
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/vlion_img_arrow"
+        android:background="@drawable/vlion_swipe_arrow"
+        android:layout_width="120dp"
+        android:layout_height="18dp"/>
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/vlion_img_hand"
+        android:background="@drawable/vlion_swipe_hand"
+        android:layout_width="35dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"/>
+</FrameLayout>

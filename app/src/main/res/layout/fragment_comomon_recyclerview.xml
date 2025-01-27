@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:srlEnableOverScrollBounce="false"
+    app:srlReboundDuration="600">
+    <com.martian.libmars.ui.theme.ThemeRelativeLayout
+        android:id="@+id/rl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <com.martian.libmars.widget.recyclerview.LoadingTip
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/rv_loadedTip"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.martian.libmars.ui.theme.ThemeRelativeLayout>
+</com.scwang.smart.refresh.layout.SmartRefreshLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path
+        name="beta_external_path"
+        path="Download/"/>
+    <external-path
+        name="beta_external_files_path"
+        path="Android/data/"/>
+    <cache-path
+        name="apk1"
+        path="."/>
+    <external-path
+        name="apk2"
+        path="."/>
+    <files-path
+        name="apk3"
+        path="."/>
+    <external-path
+        name="51xianwan"
+        path="51xianwan"/>
+    <external-path
+        name="wowan"
+        path="wowan"/>
+    <files-path
+        name="downloads"
+        path="downloads"/>
+    <external-path
+        name="external_files"
+        path="."/>
+</paths>

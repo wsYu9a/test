@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:paddingTop="20dp"
+    android:paddingBottom="14dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingEnd="12dp">
+    <com.martian.libmars.ui.theme.ThemeTextView
+        android:textSize="12sp"
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/switch_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textColorType="2"/>
+    <com.martian.libmars.ui.theme.MiSwitchButton
+        android:textSize="12sp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center"
+        android:id="@+id/switch_button"
+        android:background="@drawable/selectable_background_yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bookstores_finish"
+        android:drawablePadding="3dp"
+        android:paddingStart="5dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:switchButtonBackgroundType="2"
+        app:switchButtonIconHeight="14dp"
+        app:switchButtonIconWidth="24dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.martian.libmars.ui.theme.ThemeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/book_adder_grid_container"
+    android:background="?android:attr/windowBackground"
+    android:paddingTop="12dp"
+    android:paddingBottom="24dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp">
+    <RelativeLayout
+        android:gravity="center"
+        android:id="@+id/iv_book_more_view"
+        android:background="@drawable/border_background_book_more_day_grid"
+        android:layout_width="93dp"
+        android:layout_height="123dp">
+        <com.martian.libmars.ui.theme.ThemeImageView
+            android:layout_width="30dp"
+            android:layout_height="1dp"
+            android:src="@drawable/border_book_more_line"
+            android:layout_centerInParent="true"
+            app:colorFilterType="4"/>
+        <com.martian.libmars.ui.theme.ThemeImageView
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:src="@drawable/border_book_more_line"
+            android:layout_centerInParent="true"
+            app:colorFilterType="4"/>
+    </RelativeLayout>
+</com.martian.libmars.ui.theme.ThemeLinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_reward_video_root"
+    android:background="@android:color/black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/vlion_video_ll_play_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:maxHeight="300dp"/>
+    <FrameLayout
+        android:layout_gravity="start"
+        android:id="@+id/vlion_video_fl_progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/vlion_cn_ad_rectangle_close_bg"
+            android:padding="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <cn.vlion.ad.inland.ad.view.video.VolumeControlView
+                android:id="@+id/soundView"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

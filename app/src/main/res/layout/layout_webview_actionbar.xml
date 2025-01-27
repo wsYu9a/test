@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.martian.libmars.ui.theme.ThemeImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/actionbar_webview_close"
+        android:paddingTop="8dp"
+        android:paddingRight="11dp"
+        android:paddingBottom="8dp"
+        android:layout_width="35dp"
+        android:layout_height="46dp"
+        android:src="@drawable/icon_rules_close"
+        android:onClick="onCloseClick"
+        app:selectableImageType="1"/>
+    <com.martian.libmars.ui.theme.ThemeTextView
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="?attr/textColorPrimary"
+        android:gravity="center"
+        android:id="@+id/actionbar_webview_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:singleLine="true"
+        android:maxLength="14"
+        android:layout_weight="1"
+        app:textBackgroundType="1"/>
+</LinearLayout>

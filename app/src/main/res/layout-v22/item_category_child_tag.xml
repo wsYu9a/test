@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.martian.libmars.ui.theme.ThemeLinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:id="@+id/category_root_view"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="34dp"
+        app:backgroundType="19"
+        app:selectableLayout="true">
+        <ImageView
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/tv_page_cover"
+            android:layout_width="27dp"
+            android:layout_height="36dp"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/app_name"/>
+        <com.martian.mibook.ui.CircleImageView
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/tv_page_icon"
+            android:visibility="gone"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="centerCrop"/>
+        <com.martian.libmars.ui.theme.ThemeTextView
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/tv_page_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:autoSizeTextType="uniform"
+            android:autoSizeStepGranularity="0.1sp"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeMaxTextSize="14sp"/>
+    </com.martian.libmars.ui.theme.ThemeLinearLayout>
+</RelativeLayout>

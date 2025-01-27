@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.martian.libmars.ui.theme.ThemeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    android:id="@+id/br_search"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="44dp">
+    <com.martian.libmars.ui.theme.ThemeLinearLayout
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:backgroundType="3">
+        <com.martian.libmars.ui.theme.ThemeEditText
+            android:textSize="14sp"
+            android:textColor="?attr/textColorSecondary"
+            android:textColorHint="@color/night_text_color_secondary"
+            android:gravity="center_vertical"
+            android:id="@+id/et_search"
+            android:background="@null"
+            android:paddingLeft="14dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:hint="@string/search_bookstore_book"
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:imeOptions="actionSearch"
+            android:textCursorDrawable="@null"
+            android:paddingStart="14dp"/>
+        <com.martian.libmars.ui.theme.ThemeImageView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/btn_clear_search_text"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/general_search_close"
+            app:colorFilterType="4"
+            app:selectableImageType="1"/>
+    </com.martian.libmars.ui.theme.ThemeLinearLayout>
+</com.martian.libmars.ui.theme.ThemeLinearLayout>

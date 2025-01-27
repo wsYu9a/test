@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.martian.libmars.ui.theme.ThemeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.martian.libmars.ui.theme.ThemeIRecyclerView
+            android:id="@+id/rank_irc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:loadMoreEnabled="true"
+            app:refreshEnabled="false"/>
+        <com.martian.libmars.widget.recyclerview.LoadingTip
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/category_loading_tip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <com.martian.libmars.ui.theme.ThemeLinearLayout
+            android:gravity="center_horizontal"
+            android:id="@+id/book_status_view"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.martian.libmars.ui.theme.ThemeTextView
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:id="@+id/book_status"
+                android:paddingTop="7dp"
+                android:paddingBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/by_latest"
+                android:drawableRight="@drawable/icon_more_content_expand"
+                android:drawablePadding="4dp"
+                app:textColorType="2"/>
+        </com.martian.libmars.ui.theme.ThemeLinearLayout>
+    </RelativeLayout>
+</com.martian.libmars.ui.theme.ThemeLinearLayout>

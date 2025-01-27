@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_horizontal"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/martian_toast_container"
+    android:background="@drawable/martian_get_coins_bg"
+    android:padding="24dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/martian_coins_type"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/martian_img_coin_toast"/>
+    <TextView
+        android:textSize="14dp"
+        android:textColor="#ffe3e3e3"
+        android:id="@+id/martian_mbMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:textSize="14dp"
+        android:textColor="#ffe3e3e3"
+        android:id="@+id/martian_add_coins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/guide_view"
+    android:background="#c9000000"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <ImageView
+            android:background="@drawable/bg_first_guide_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/app_name"
+            android:translationX="-9dp"/>
+        <ImageView
+            android:id="@+id/guide_hand_icon"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="21dp"
+            android:src="@drawable/first_guide_hand"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/app_name"/>
+        <TextView
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="129dp"
+            android:text="@string/guide_arouse_menu_hint"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+</RelativeLayout>

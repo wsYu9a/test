@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <ImageView
+                android:id="@+id/iv_closed"
+                android:padding="8dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/vlion_cn_ad_back"/>
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/pb_web_progress"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"/>
+        <WebView
+            android:id="@+id/wb_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</FrameLayout>

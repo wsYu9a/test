@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_backup_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_name"
+            android:layout_weight="1"
+            android:inputType="none"/>
+        <TextView
+            android:textSize="18sp"
+            android:id="@+id/tv_backup_suffix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <TextView
+        android:textSize="12sp"
+        android:textColor="@color/heavy_grey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/archive_hint"/>
+</LinearLayout>

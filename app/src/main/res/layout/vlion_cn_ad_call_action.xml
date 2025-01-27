@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="16sp"
+    android:textColor="#ffffff"
+    android:gravity="center"
+    android:id="@+id/tv_learn_more"
+    android:background="@drawable/vlion_cn_ad_button_rounded_outlined"
+    android:padding="5dp"
+    android:focusable="false"
+    android:clickable="false"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="了解更多"/>

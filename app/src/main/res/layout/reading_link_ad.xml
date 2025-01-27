@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.martian.libmars.ui.theme.ThemeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:id="@+id/reading_link_ad_View"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:backgroundType="-1"
+    app:selectableLayout="true">
+    <com.martian.mibook.ui.reader.ReaderThemeImageView
+        android:id="@+id/reading_ads_close_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="1dp"
+        android:src="@drawable/reader_icon_video_ad"
+        app:readerImageColorFilterType="2"/>
+    <com.martian.mibook.ui.reader.ReaderThemeTextView
+        android:textSize="16dp"
+        android:id="@+id/reading_ads_close_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:layout_marginStart="4dp"
+        app:readerTextColorType="2"/>
+    <com.martian.mibook.ui.reader.ReaderThemeImageView
+        android:id="@+id/reading_ads_close_more"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/loan_more"
+        android:layout_marginStart="2dp"
+        app:readerImageColorFilterType="2"/>
+</com.martian.libmars.ui.theme.ThemeLinearLayout>

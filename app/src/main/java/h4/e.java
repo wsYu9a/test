@@ -1,0 +1,7 @@
+package h4;
+
+/* loaded from: classes2.dex */
+public final /* synthetic */ class e {
+    public static /* synthetic */ void a() {
+    }
+}

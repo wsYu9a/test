@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.martian.libmars.ui.theme.ThemeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="4dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.martian.libmars.ui.theme.ThemeLinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/iv_recharge_item"
+        android:background="@drawable/border_button_theme_default_middle"
+        android:paddingTop="14dp"
+        android:paddingBottom="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundType="-1"
+        app:selectableLayout="true">
+        <TextView
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/theme_default"
+            android:id="@+id/iv_txs_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"/>
+        <TextView
+            android:textSize="12sp"
+            android:textColor="?attr/textColorThirdly"
+            android:id="@+id/iv_txs_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:hint="淘书币"/>
+    </com.martian.libmars.ui.theme.ThemeLinearLayout>
+</com.martian.libmars.ui.theme.ThemeLinearLayout>
